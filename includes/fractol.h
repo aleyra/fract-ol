@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 13:31:55 by lburnet           #+#    #+#             */
-/*   Updated: 2021/05/26 13:52:53 by lburnet          ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -23,12 +11,14 @@
 typedef struct s_vars	t_vars;
 typedef struct s_data	t_data;
 typedef struct s_rgb	t_rgb;
+typedef enum e_error	t_error;
+typedef enum e_key		t_key;
 
 struct s_vars
 {
 	void	*win;
 	void	*mlx;
-	t_data	*img;
+	t_data	*data;
 };
 
 struct s_data
@@ -50,4 +40,21 @@ struct s_rgb {
 	float	fg;
 	float	fr;
 };
+
+enum e_error {
+	NO_ERROR,
+};
+
+enum e_key{
+	NO_KEY = 0,
+	ESC = 53,
+	LEFT_ARROW = 123,
+	RIGHT_ARROW = 124,
+	DOWN_ARROW = 125,
+	UP_ARROW = 126,
+};
+
+/* fct in display *********************************************************** */
+int	win_close(t_vars *v);
+int	interact_key(int keycode, t_vars *v);
 #endif
