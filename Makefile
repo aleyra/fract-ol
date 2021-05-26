@@ -12,8 +12,10 @@ PATH_LIBFT	=	libft
 PATH_LIBG	=	minilibx
 
 # List of sources
-SRCS_DISP	=	
+SRCS_DISP	=	interact.c 
+SRCS_FRACT	=	julia_set.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
+				$(addprefix $(PATH_SRC)/fractal/, $(SRCS_FRACT)) \
 				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
