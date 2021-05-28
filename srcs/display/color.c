@@ -5,24 +5,16 @@ int	create_trgb(t_rgb color)
 	return (color.t << 24 | color.r << 16 | color.g << 8 | color.b);
 }
 
-void	incre_color(t_rgb *color, int i)
+//from qpupier
+t_rgb	set_random_color(void)
 {
-	color->r += i;
-	if (color->r > 255)
-	{
-		color->r = color->r % 256;
-		color->g += i;
-	}
-	if (color->g > 255)
-	{
-		color->g = color->g % 256;
-		color->b += i;
-	}
-	if (color->b > 255)
-	{
-		color->b = color->b % 256;
-		incre_color(color, i);
-	}
+	t_rgb	color;
+
+	color.r = rand() % 255;
+	color.g = rand() % 255;
+	color.b = rand() % 255;
+	color.t = 0;
+	return (color);
 }
 
 void	init_color(t_rgb *color, int r, int g, int b)

@@ -3,11 +3,12 @@
 int	main(int ac, char *av[])
 {
 	t_vars	v;
+	t_fol	fol;
 	t_rgb 	color;//
 
-	if (ac == 1 || ac >= 3)
+	if (ac >= 3)
 		return (ft_exit(ERROR_MAIN_PARAM));
-	if (ft_strcmp(av[1], "Julia") != 0 && ft_strcmp(av[1], "Mandelbrot") != 0)
+	if (init_fractal(&fol, av[1]) == ERROR_MAIN_PARAM)
 		return (ft_exit(ERROR_MAIN_PARAM));
 	v.mlx = mlx_init();
 	if (!v.mlx)
