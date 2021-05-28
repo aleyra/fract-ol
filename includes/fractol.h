@@ -44,6 +44,8 @@ struct s_rgb {
 
 enum e_error {
 	NO_ERROR,
+	ERROR_MAIN_PARAM,
+	ERROR_MLX,
 	ERROR_MALLOC
 };
 
@@ -60,6 +62,7 @@ enum e_key{
 int		create_trgb(t_rgb color);
 void	incre_color(t_rgb *color, int i);
 void	init_color(t_rgb *color, int r, int g, int b);
+int		ft_exit(int err);
 int		win_close(t_vars *v);
 int		interact_key(int keycode, t_vars *v);
 void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);

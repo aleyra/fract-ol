@@ -1,4 +1,5 @@
 .PHONY: all clean fclean re
+LINUX		=	0
 
 # Name of file
 NAME		=	fractol
@@ -8,11 +9,21 @@ PATH_INC	=	includes
 PATH_SRC	=	srcs
 PATH_OBJ	=	objs
 PATH_LOG	=	logs
-PATH_LIBFT	=	libft
-PATH_LIBG	=	minilibx
+
+# Libraries
+
+override LIBFT_DIR	:= libft
+override LIBFT		:= libft.a
+ifeq ($(LINUX),0)
+override MINILIBX_DIR	:= minilibx-macos
+override MINILIBX		:= libmlx.dylib
+else
+override MINILIBX_DIR	:= minilibx-linux
+override MINILIBX		:= libmlx.a
+endif
 
 # List of sources
-SRCS_DISP	=	color.c interact.c my_mlx_pixel_put.c
+SRCS_DISP	=	color.c ft_exit.c interact.c my_mlx_pixel_put.c
 SRCS_FRACT	=	julia_set.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/fractal/, $(SRCS_FRACT)) \
@@ -20,13 +31,16 @@ SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))
 INCS		=	$(PATH_INC)/fractol.h
-LIBFT		=	-L $(PATH_LIBFT)
-LIBMLX		=	 $(PATH_LIBG)/libmlx.dylib
+
+LIBRARIES	:= -lpthread
+ifeq ($(LINUX),1)
+LIBRARIES	+= -lm -lXext -lX11
+endif
 
 # Commands of compilation
 COMP		=	clang
 COMP_FLAG	=	-Wall -Wextra -Werror -Imlx
-COMP_ADD	=	-I $(PATH_LIBFT)/includes -I $(PATH_LIBG) -I $(PATH_INC)
+COMP_ADD	=	-I$(PATH_INC) -I$(LIBFT_DIR)/$(PATH_INC) -I$(MINILIBX_DIR)
 
 # Others Command
 RM			=	/bin/rm
@@ -44,16 +58,15 @@ all:	init $(NAME)
 
 init:
 	 $(shell mkdir -p $(PATH_OBJ))
-	 $(MAKE) -C $(PATH_LIBFT)
-	 $(MAKE) -C $(PATH_LIBG)
+	 $(MAKE) -C $(LIBFT_DIR)
+	ln -sf $(LIBFT_DIR)/$(LIBFT)
+	$(MAKE) -C $(MINILIBX_DIR)
+	ln -sf $(MINILIBX_DIR)/$(MINILIBX)
 
+bonus :	all
 
-libmlx.dylib:
-	ln -sf $(LIBMLX) .
-
-$(NAME): 	$(OBJS) libmlx.dylib #sur Mac
-	ln -sf $(LIBMLX) .
-	$(COMP) $(OBJS) $(LIBFT) $(LIBMLX) -l ft -o $(NAME)
+$(NAME): 	$(OBJS) $(LIBFT) $(MINILIBX)
+			$(CC) $(CFLAGS) $(OBJS) $(MINILIBX) $(LIBFT) -o $(NAME) $(LIBRARIES)
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
 	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@
@@ -66,11 +79,13 @@ $(PATH_OBJ)/%.o : $(PATH_SRC)/%.c  $(INCS)
 clean:
 	@ $(RM) -rf $(PATH_OBJ)
 	@ echo "$(_INFO) Deleted files and directory"
-	 $(MAKE) -C $(PATH_LIBFT) clean
-	 $(MAKE) -C $(PATH_LIBG) clean
+	 $(MAKE) -C $(LIBFT_DIR) clean
+	 $(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean
 	@ $(RM) -rf $(NAME)
-	 $(MAKE) -C $(PATH_LIBFT) fclean
+	@ $(RM) $(LIBFT)
+	 $(MAKE) -C $(LIBFT_DIR) fclean
+	@ $(RM) $(MINILIBX)
 
 re: fclean all
