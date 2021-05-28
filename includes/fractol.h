@@ -6,6 +6,10 @@
 # include "stdio.h"
 # include "mlx.h"
 
+# define SIZE 800
+# define RES_X SIZE
+# define RES_Y SIZE
+
 /* Structs for fract-ol ***************************************************** */
 
 typedef struct s_vars	t_vars;
@@ -36,13 +40,11 @@ struct s_rgb {
 	int		b;
 	int		g;
 	int		r;
-	float	fb;
-	float	fg;
-	float	fr;
 };
 
 enum e_error {
 	NO_ERROR,
+	ERROR_MALLOC
 };
 
 enum e_key{
@@ -55,6 +57,16 @@ enum e_key{
 };
 
 /* fct in display *********************************************************** */
-int	win_close(t_vars *v);
-int	interact_key(int keycode, t_vars *v);
+int		create_trgb(t_rgb color);
+void	incre_color(t_rgb *color, int i);
+void	init_color(t_rgb *color, int r, int g, int b);
+int		win_close(t_vars *v);
+int		interact_key(int keycode, t_vars *v);
+void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);
+
+/* fct in fractal *********************************************************** */
+float	julia_set_reccur_x(float zn[2], float c[2]);
+float	julia_set_reccur_y(float zn[2], float c[2]);
+int		display_julia(t_vars *v, float z0[2], float c[2], int i_max);
+
 #endif

@@ -7,38 +7,52 @@
 /* z[1] is y when z=x+iy													  */
 /* idem for c[2]															  */
 /******************************************************************************/
-void	normal_julia_set(int esc_radius, float c[2])
+float	julia_set_reccur_x(float zn[2], float c[2])
 {
-	int		ij[2];
-	float	z[2];
-	float	t;
-	int		n;
-	int		n_max;
+	float	xn1;
 
-	ij[0] = 0;
-	n = 0;
-	n_max = 1000;
-	while (ij[0] < 1920)
+	xn1 = zn[0] * zn[0] - zn[1] * zn[1] + c[0];
+	return (xn1);
+}
+
+float	julia_set_reccur_y(float zn[2], float c[2])
+{
+	float	yn1;
+
+	yn1 = 2 * zn[0] * zn[1] + c[1];
+	return (yn1);
+}
+
+int	display_julia(t_vars *v, float z0[2], float c[2], int i_max)
+{
+	// t_rgb	color;
+	float	*z;
+	int		i;
+	int		xy[2];
+
+	(void)v;//
+	i = 0;
+	// init_color(&color, 0, 0, 125);
+	z = malloc(2 * sizeof(float));
+	if (!z)
+		return (ERROR_MALLOC);
+	z[0] = z0[0];
+	z[1] = z0[1];
+	xy[0] = z[0] * 100 + 1920 / 2;//?
+	xy[1] = -1 * z[1] * 100 + 1080 / 2;//?
+	printf("c = %f + i %f\n", c[0], c[1]);//
+	while (i < i_max)//&& xy[0] < 1920 && xy[1] < 1080)
 	{
-		ij[1] = 0;
-		while (ij[1] < 1080)
-		{
-			z[0] = scaled_coord_pix(ij[0], esc_radius);
-			z[1] = scaled_coord_pix(ij[1], esc_radius);
-			while (z[0] * z[0] + z[1] * z[1] < esc_radius * esc_radius
-				&& n < n_max)
-			{
-				t = z[0] * z[0] - z[1] * z[1];
-				z[1] = 2 * z[0] * z[1] + c[1];
-				z[0] = t + c[0];
-				n++;
-			}
-			// if (n == n_max)
-        	// 	return black;
-    		// else
-        	// 	return n;
-			(ij[1])++;
-		}
-		(ij[0])++;
+		// color.i = create_trgb(color);
+		// my_mlx_pixel_put(v->data, xy[0], xy[1], color);//?
+		printf("%d : %f + i %f\n", i, z[0], z[1]);
+		z[0] = julia_set_reccur_x(z, c);
+		z[1] = julia_set_reccur_y(z, c);
+		xy[0] = z[0] * 100 + 1920 / 2;//?
+		xy[1] = -1 * z[1] * 100 + 1080 / 2;//?
+		// incre_color(&color, 25);
+		i++;
 	}
+	free(z);
+	return (NO_ERROR);
 }
