@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-int	ft_exit(int err)
+int	ft_exit(int err, t_vars *v)
 {
 	if (err != NO_ERROR)
 	{
@@ -11,8 +11,12 @@ int	ft_exit(int err)
 			printf("what type of fractal will be viewed\nEnter 'Julia' or ");
 			printf("'Mandelbrot'\n");
 		}
+		if (err == ERROR_MLX)
+			printf("Error from mlx\n");
 		if (err == ERROR_MALLOC)
 			printf("A malloc didn't work\n");
 	}
+	if (v->fol)
+		free(v->fol);
 	return (err);
 }

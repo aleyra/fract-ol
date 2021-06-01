@@ -1,0 +1,11 @@
+libft/objs
+libft/libft.a
+minilibx-macos/*.o
+minilibx-macos/libmlx.dylib
+minilibx-macos/*.swiftdoc
+minilibx-macos/*.swiftmodule
+objs
+qpupier
+fractol
+libft.a
+libmlx.dylib
