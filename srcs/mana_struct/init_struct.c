@@ -17,10 +17,14 @@ int	init_fractal(t_vars *v, char *str)
 
 void	init_fol(t_fol *fol)
 {
-	fol->colors[0] = init_rgb_black();
-	fol->colors[1] = init_rgb_light_kaki();
-	fol->colors[2] = init_rgb_blue();
-	fol->colors[3] = init_rgb_grey();
-	fol->init_fractal[JULIA - 1] = init_julia;
-	fol->init_fractal[MANDELBROT - 1] = init_mandelbrot;
+	fol->colors[JULIA][0] = init_rgb_black();
+	fol->colors[JULIA][1] = init_rgb_light_kaki();
+	fol->colors[JULIA][2] = init_rgb_blue();
+	fol->colors[JULIA][3] = init_rgb_grey();
+	fol->colors[MANDELBROT][0] = init_rgb_black();
+	fol->colors[MANDELBROT][1] = init_rgb_light_kaki();
+	fol->colors[MANDELBROT][2] = init_rgb_blue();
+	fol->colors[MANDELBROT][3] = init_rgb_grey();
+	fol->init_fractal[JULIA] = init_julia;
+	fol->init_fractal[MANDELBROT] = init_mandelbrot;
 }

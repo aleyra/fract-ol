@@ -7,20 +7,18 @@ static void	result_in_color(t_vars *v, int it, double i, double j)
 	t_rgb	black;
 	t_fol	*fol;
 
-	black.i = 0;
+	black = init_rgb_black();
 	fol = v->fol;
 	z = make_cplx(0, 0);
 	if (it < fol->it[fol->fractal])
 	{
 		nb = (double)it * 3 / (double)fol->it[fol->fractal];
 		my_mlx_pixel_put(&v->data, i, j,
-			degraded_color(fol->colors[(int)nb], fol->colors[(int)nb + 1],
-				nb - (int)nb));
+			degraded_color(fol->colors[fol->fractal - 1][(int)nb],
+				fol->colors[fol->fractal - 1][(int)nb + 1], nb - (int)nb));
 	}
 	else
-	{
 		my_mlx_pixel_put(&v->data, i, j, black);
-	}
 }
 
 static void	define_z_fol_c(int i, int j, t_fol *fol, t_cplx *z)
@@ -46,9 +44,9 @@ static	t_cplx	set_formula(t_fol *fol, t_cplx z)
 	t_cplx	res;
 
 	if (fol->fractal == JULIA)
-		res = alg_cplx(1, mult_cplx(z, z), 1, fol->c[JULIA]);
+		res = formula_julia(z, fol);
 	else//else if (fol->fractal == MANDELBROT) when bonus ON
-		res = alg_cplx(1, mult_cplx(z, z), 1, fol->c[MANDELBROT]);
+		res = formula_mandelbrot(z, fol);
 	//else add bonus
 	return (res);
 }

@@ -5,7 +5,7 @@ static int	init_with_mlx(t_vars *v)
 	v->mlx = mlx_init();
 	if (!v->mlx)
 		return (ft_exit(ERROR_MLX, v));
-	v->win = mlx_new_window(v->mlx, RES_X, RES_Y, "fractol");
+	v->win = mlx_new_window(v->mlx, RES_X, RES_Y, "fract'ol");
 	if (!v->win)
 		return (ft_exit(ERROR_MLX, v));
 	v->data.img = mlx_new_image(v->mlx, RES_X, RES_Y);

@@ -40,9 +40,7 @@ struct s_rgb {
 
 struct s_fol {
 	int			fractal;
-	// t_rgb		color1;
-	// t_rgb		color2;
-	t_rgb		colors[4];
+	t_rgb		colors[NB_FRACTALS][4];
 	long double	zoom[NB_FRACTALS];
 	int			dis_zoom[NB_FRACTALS];
 	t_cplx		pos_left[NB_FRACTALS];
@@ -50,8 +48,7 @@ struct s_fol {
 	double		it_tmp[NB_FRACTALS];
 	int			it[NB_FRACTALS];
 	t_cplx		c[NB_FRACTALS];
-	int			deg_mandelbrot[3];
-	void		(*init_fractal[NB_FRACTALS - 1])(t_fol *, int);
+	void		(*init_fractal[NB_FRACTALS])(t_fol *, int);
 };
 
 struct s_vars
@@ -79,9 +76,9 @@ enum e_key {
 };
 
 enum e_fractal {
-	NONE,
 	JULIA,
-	MANDELBROT
+	MANDELBROT,
+	UNKNOWN
 };
 
 /* fct in display *********************************************************** */
@@ -100,7 +97,9 @@ void	print_fol(t_fol *fol);
 /* fct in fractal *********************************************************** */
 void	fractal(t_vars *v);
 void	init_julia(t_fol *fol, int f);
+t_cplx	formula_julia(t_cplx z, t_fol *fol);
 void	init_mandelbrot(t_fol *fol, int f);
+t_cplx	formula_mandelbrot(t_cplx z, t_fol *fol);
 
 /* fct in mana_struct ******************************************************* */
 t_rgb	init_rgb_black(void);
