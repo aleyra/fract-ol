@@ -18,7 +18,7 @@ int	init_fractal(t_vars *v, char *str)
 void	init_fol(t_fol *fol)
 {
 	fol->color1 = set_random_color();
-	fol->color2 = set_random_color();
+	fol->color2 = color_add_i(fol->color1, 100);
 	fol->init_fractal[JULIA - 1] = init_julia;
 	fol->init_fractal[MANDELBROT - 1] = init_mandelbrot;
 }

@@ -1,6 +1,6 @@
 #include "fractol.h"
 
-static void	result_in_color(t_vars *v, double it, double i, double j)
+static void	result_in_color(t_vars *v, int it, double i, double j)
 {
 	double	nb;
 	t_cplx	z;
@@ -13,17 +13,51 @@ static void	result_in_color(t_vars *v, double it, double i, double j)
 	if (it < fol->it[fol->fractal])
 	{
 		nb = it * 3 / fol->it[fol->fractal];
-		my_mlx_pixel_put(v->win, i, j, degraded_color(fol->color1, fol->color2, nb - (int)nb));
+		my_mlx_pixel_put(&v->data, i, j,
+			degraded_color(fol->color1, fol->color2, nb - (int)nb));
 	}
 	else
-		my_mlx_pixel_put(v->win, i, j, black);
+	{
+	//if (i == 99 && j >= 414) {printf("bah it = %d, if[] = %d\n", it, fol->it[fol->fractal]);}//
+		my_mlx_pixel_put(&v->data, i, j, black);
+	}
+}
+
+static void	define_z_fol_c(int i, int j, t_fol *fol, t_cplx *z)
+{
+	if (fol->fractal == JULIA)
+	{
+		*z = make_cplx(fol->pos_left[JULIA].x + fol->zoom[JULIA] * i
+				/ RES_X, fol->pos_left[JULIA].y + fol->zoom[JULIA] * j
+				/ RES_Y);
+	}
+	else
+	{
+		*z = make_cplx(0, 0);
+		fol->c[fol->fractal] = make_cplx(fol->pos_left[fol->fractal].x
+				+ fol->zoom[fol->fractal] * i / RES_X,
+				fol->pos_left[fol->fractal].y + fol->zoom[fol->fractal]
+				* j / RES_Y);
+	}
+}
+
+static	t_cplx	set_formula(t_fol *fol, t_cplx z)
+{
+	t_cplx	res;
+
+	if (fol->fractal == JULIA)
+		res = alg_cplx(1, mult_cplx(z, z), 1, fol->c[JULIA]);
+	else//else if (fol->fractal == MANDELBROT) when bonus ON
+		res = alg_cplx(1, mult_cplx(z, z), 1, fol->c[MANDELBROT]);
+	//else add bonus
+	return (res);
 }
 
 void	fractal(t_vars *v)
 {
 	int		i;
 	int		j;
-	double	it;
+	int		it;
 	t_cplx	z;
 	t_fol	*fol;
 
@@ -34,32 +68,15 @@ void	fractal(t_vars *v)
 		j = 0;
 		while (j < RES_Y)
 		{
-			if (fol->fractal == JULIA)
-				z = make_cplx(fol->pos_left[JULIA].x + fol->zoom[JULIA] * i
-						/ RES_X, fol->pos_left[JULIA].y + fol->zoom[JULIA] * j
-						/ RES_Y);
-			else
-			{
-				z = make_cplx(0, 0);
-				fol->z[fol->fractal] = make_cplx(fol->pos_left[fol->fractal].x
-						+ fol->zoom[fol->fractal] * i / RES_X,
-						fol->pos_left[fol->fractal].y + fol->zoom[fol->fractal]
-						* j / RES_Y);
-	printf("la\n");//
-			}
+			define_z_fol_c(i, j, fol, &z);
 			it = 0;
 			while (it < fol->it[fol->fractal] && module_cplx_pow2(z) < 4)
 			{
-				if (fol->fractal < 2)
-					z = alg_cplx(1, mult_cplx(z, z), 1, fol->z[fol->fractal]);
-				else
-				{
-					printf("for bonus\n");//
-					break ;//
-				}
+				z = set_formula(fol, z);
 				it++;
-				result_in_color(v, it, i, j);
 			}
+			//if (i == 99 && j >= 414) {printf("bouh\n");}//
+			result_in_color(v, it, i, j);
 			j++;
 		}
 		i++;

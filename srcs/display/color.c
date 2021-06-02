@@ -17,12 +17,20 @@ t_rgb	set_random_color(void)
 	return (color);
 }
 
-void	init_color(t_rgb *color, int r, int g, int b)
+t_rgb	color_add_i(t_rgb color, int i)
 {
-	color->t = 0;
-	color->r = r;
-	color->g = g;
-	color->b = b;
+	t_rgb	res;
+
+	res.r = color.r + i;
+	if (res.r > 255)
+		res.r = res.r % 255;
+	res.g = color.g + i;
+	if (res.g > 255)
+		res.g = res.g % 255;
+	res.b = color.b + i;
+	if (res.b > 255)
+		res.b = res.b % 255;
+	return (res);
 }
 
 //inspired by qpupier

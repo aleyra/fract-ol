@@ -9,7 +9,7 @@
 # define SIZE 800
 # define RES_X SIZE
 # define RES_Y SIZE
-# define NB_FRACTALS 2
+# define NB_FRACTALS 3
 
 /* Structs for fract-ol ***************************************************** */
 
@@ -48,9 +48,9 @@ struct s_fol {
 	int			deg[NB_FRACTALS];
 	double		it_tmp[NB_FRACTALS];
 	int			it[NB_FRACTALS];
-	t_cplx		z[NB_FRACTALS];
+	t_cplx		c[NB_FRACTALS];
 	int			deg_mandelbrot[3];
-	void		(*init_fractal[NB_FRACTALS])(t_fol *, int);
+	void		(*init_fractal[NB_FRACTALS - 1])(t_fol *, int);
 };
 
 struct s_vars
@@ -86,12 +86,15 @@ enum e_fractal {
 /* fct in display *********************************************************** */
 int		create_trgb(t_rgb color);
 t_rgb	set_random_color(void);
-void	init_color(t_rgb *color, int r, int g, int b);
+t_rgb	color_add_i(t_rgb color, int i);
 t_rgb	degraded_color(t_rgb c1, t_rgb c2, double p);
 int		ft_exit(int err, t_vars *v);
 int		win_close(t_vars *v);
 int		interact_key(int keycode, t_vars *v);
 void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);
+void	print_rgb(t_rgb rgb);
+void	print_cplx(t_cplx z);
+void	print_fol(t_fol *fol);
 
 /* fct in fractal *********************************************************** */
 void	fractal(t_vars *v);

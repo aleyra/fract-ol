@@ -9,5 +9,5 @@ void	init_julia(t_fol *fol, int f)
 	fol->deg[f] = 2;
 	fol->it_tmp[f] = 0;
 	fol->it[f] = 300;//10000 if f == 14
-	fol->z[f] = make_cplx(-0.8, 0.156);
+	fol->c[f] = make_cplx(-0.8, 0.156);
 }
