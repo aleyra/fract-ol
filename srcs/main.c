@@ -29,11 +29,10 @@ int	main(int ac, char *av[])
 	v.fol->init_fractal[v.fol->fractal - 1](v.fol, v.fol->fractal);
 	if (err != NO_ERROR)
 		return (ft_exit(err, &v));
-	print_rgb(v.fol->color1);
-	print_rgb(v.fol->color2);
 	if (init_with_mlx(&v) != NO_ERROR)
 		return (ft_exit(ERROR_MLX, &v));
 	fractal(&v);
+	printf("displaying...\n");
 	mlx_put_image_to_window(v.mlx, v.win, v.data.img, 0, 0);
 	mlx_hook(v.win, 17, 1L << 2, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);

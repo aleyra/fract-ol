@@ -25,7 +25,7 @@ endif
 # List of sources
 SRCS_DISP	=	color.c ft_exit.c interact.c my_mlx_pixel_put.c print_thgs.c
 SRCS_FRACT	=	fractal.c julia_set.c mandelbrot_set.c
-SRCS_MANA_S	=	init_struct.c
+SRCS_MANA_S	=	init_color.c init_struct.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/fractal/, $(SRCS_FRACT)) \
 				$(addprefix $(PATH_SRC)/mana_struct/, $(SRCS_MANA_S)) \

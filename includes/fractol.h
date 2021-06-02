@@ -40,8 +40,9 @@ struct s_rgb {
 
 struct s_fol {
 	int			fractal;
-	t_rgb		color1;
-	t_rgb		color2;
+	// t_rgb		color1;
+	// t_rgb		color2;
+	t_rgb		colors[4];
 	long double	zoom[NB_FRACTALS];
 	int			dis_zoom[NB_FRACTALS];
 	t_cplx		pos_left[NB_FRACTALS];
@@ -102,6 +103,10 @@ void	init_julia(t_fol *fol, int f);
 void	init_mandelbrot(t_fol *fol, int f);
 
 /* fct in mana_struct ******************************************************* */
+t_rgb	init_rgb_black(void);
+t_rgb	init_rgb_light_kaki(void);
+t_rgb	init_rgb_blue(void);
+t_rgb	init_rgb_grey(void);
 int		init_fractal(t_vars *v, char *str);
 void	init_fol(t_fol *fol);
 

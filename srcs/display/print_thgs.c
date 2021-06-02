@@ -13,10 +13,6 @@ void	print_cplx(t_cplx z)
 void	print_fol(t_fol *fol)
 {
 	printf("fractal = %d\n", fol->fractal);
-	printf("color 1 :");
-	print_rgb(fol->color1);
-	printf("color 2 :");
-	print_rgb(fol->color2);
 	printf("zoom[%d] = %Lf\n", fol->fractal, fol->zoom[fol->fractal]);
 	printf("dis_zoom[%d] = %d\n", fol->fractal, fol->dis_zoom[fol->fractal]);
 	printf("pos_left[%d] = ", fol->fractal);

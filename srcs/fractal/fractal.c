@@ -12,13 +12,13 @@ static void	result_in_color(t_vars *v, int it, double i, double j)
 	z = make_cplx(0, 0);
 	if (it < fol->it[fol->fractal])
 	{
-		nb = it * 3 / fol->it[fol->fractal];
+		nb = (double)it * 3 / (double)fol->it[fol->fractal];
 		my_mlx_pixel_put(&v->data, i, j,
-			degraded_color(fol->color1, fol->color2, nb - (int)nb));
+			degraded_color(fol->colors[(int)nb], fol->colors[(int)nb + 1],
+				nb - (int)nb));
 	}
 	else
 	{
-	//if (i == 99 && j >= 414) {printf("bah it = %d, if[] = %d\n", it, fol->it[fol->fractal]);}//
 		my_mlx_pixel_put(&v->data, i, j, black);
 	}
 }
@@ -75,7 +75,6 @@ void	fractal(t_vars *v)
 				z = set_formula(fol, z);
 				it++;
 			}
-			//if (i == 99 && j >= 414) {printf("bouh\n");}//
 			result_in_color(v, it, i, j);
 			j++;
 		}
