@@ -47,3 +47,21 @@ t_rgb	init_rgb_grey(void)
 	res.i = create_trgb(res);
 	return (res);
 }
+
+t_rgb	init_rgb_color(int r, int g, int b)
+{
+	t_rgb	res;
+
+	if (r > 255)
+		r = r % 255;
+	res.r = r;
+	if (g > 255)
+		g = g % 255;
+	res.g = g;
+	if (b > 255)
+		b = b % 255;
+	res.b = b;
+	res.t = 0;
+	res.i = create_trgb(res);
+	return (res);
+}

@@ -26,7 +26,7 @@ int	main(int ac, char *av[])
 	if (ac == 1 || ac >= 3)
 		return (ft_exit(ERROR_MAIN_PARAM, &v));
 	err = init_fractal(&v, av[1]);
-	v.fol->init_fractal[v.fol->fractal - 1](v.fol, v.fol->fractal);
+	v.fol->init_fractal[v.fol->fractal](v.fol, v.fol->fractal);
 	if (err != NO_ERROR)
 		return (ft_exit(err, &v));
 	if (init_with_mlx(&v) != NO_ERROR)
@@ -36,6 +36,7 @@ int	main(int ac, char *av[])
 	mlx_put_image_to_window(v.mlx, v.win, v.data.img, 0, 0);
 	mlx_hook(v.win, 17, 1L << 2, win_close, &v);
 	mlx_key_hook(v.win, interact_key, &v);
+	mlx_hook(v.win, 4, 1L << 2, interact_mouse, &v);
 	mlx_loop(v.mlx);
 	return (ft_exit(NO_ERROR, &v));
 }

@@ -9,7 +9,7 @@ int	ft_exit(int err, t_vars *v)
 		{
 			printf("A parameter must be passed on the command line to define ");
 			printf("what type of fractal will be viewed\nEnter 'Julia' or ");
-			printf("'Mandelbrot'\n");
+			printf("'Mandelbrot' or 'Fern'\n");
 		}
 		if (err == ERROR_MLX)
 			printf("Error from mlx\n");

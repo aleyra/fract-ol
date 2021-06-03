@@ -24,11 +24,13 @@ endif
 
 # List of sources
 SRCS_DISP	=	color.c ft_exit.c interact.c my_mlx_pixel_put.c print_thgs.c
-SRCS_FRACT	=	fractal.c julia_set.c mandelbrot_set.c
+SRCS_FRACT	=	fern_set.c fractal.c julia_set.c mandelbrot_set.c
 SRCS_MANA_S	=	init_color.c init_struct.c
+SRCS_TOOLS	=	tools.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)/fractal/, $(SRCS_FRACT)) \
 				$(addprefix $(PATH_SRC)/mana_struct/, $(SRCS_MANA_S)) \
+				$(addprefix $(PATH_SRC)/tools/, $(SRCS_TOOLS)) \
 				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine
 
 OBJS		=	$(addprefix $(PATH_OBJ)/, $(notdir $(SRCS:.c=.o)))

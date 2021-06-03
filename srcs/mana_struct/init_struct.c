@@ -9,6 +9,8 @@ int	init_fractal(t_vars *v, char *str)
 		v->fol->fractal = JULIA;
 	else if (ft_strcmp(str, "Mandelbrot") == 0)
 		v->fol->fractal = MANDELBROT;
+	else if (ft_strcmp(str, "Fern") == 0)
+		v->fol->fractal = FERN;
 	else
 		return (ERROR_MAIN_PARAM);
 	init_fol(v->fol);
@@ -25,6 +27,11 @@ void	init_fol(t_fol *fol)
 	fol->colors[MANDELBROT][1] = init_rgb_light_kaki();
 	fol->colors[MANDELBROT][2] = init_rgb_blue();
 	fol->colors[MANDELBROT][3] = init_rgb_grey();
+	fol->colors[FERN][0] = init_rgb_black();
+	fol->colors[FERN][1] = init_rgb_color(255, 199, 76);
+	fol->colors[FERN][2] = init_rgb_color(207, 21, 120);
+	fol->colors[FERN][3] = init_rgb_color(3, 159, 190);
 	fol->init_fractal[JULIA] = init_julia;
 	fol->init_fractal[MANDELBROT] = init_mandelbrot;
+	fol->init_fractal[FERN] = init_newton;
 }

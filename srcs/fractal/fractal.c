@@ -14,28 +14,24 @@ static void	result_in_color(t_vars *v, int it, double i, double j)
 	{
 		nb = (double)it * 3 / (double)fol->it[fol->fractal];
 		my_mlx_pixel_put(&v->data, i, j,
-			degraded_color(fol->colors[fol->fractal - 1][(int)nb],
-				fol->colors[fol->fractal - 1][(int)nb + 1], nb - (int)nb));
+			degraded_color(fol->colors[fol->fractal][(int)nb],
+				fol->colors[fol->fractal][(int)nb + 1], nb - (int)nb));
 	}
 	else
 		my_mlx_pixel_put(&v->data, i, j, black);
+	//chercher 'affichage couleur de fern (frac = 16 ou 17)
 }
 
 static void	define_z_fol_c(int i, int j, t_fol *fol, t_cplx *z)
 {
 	if (fol->fractal == JULIA)
 	{
-		*z = make_cplx(fol->pos_left[JULIA].x + fol->zoom[JULIA] * i
-				/ RES_X, fol->pos_left[JULIA].y + fol->zoom[JULIA] * j
-				/ RES_Y);
+		*z = coord_to_scale(fol, i, j, JULIA);
 	}
 	else
 	{
 		*z = make_cplx(0, 0);
-		fol->c[fol->fractal] = make_cplx(fol->pos_left[fol->fractal].x
-				+ fol->zoom[fol->fractal] * i / RES_X,
-				fol->pos_left[fol->fractal].y + fol->zoom[fol->fractal]
-				* j / RES_Y);
+		fol->c[fol->fractal] = coord_to_scale(fol, i, j, fol->fractal);
 	}
 }
 
@@ -44,10 +40,13 @@ static	t_cplx	set_formula(t_fol *fol, t_cplx z)
 	t_cplx	res;
 
 	if (fol->fractal == JULIA)
+	{
 		res = formula_julia(z, fol);
-	else//else if (fol->fractal == MANDELBROT) when bonus ON
+	}
+	else if (fol->fractal == MANDELBROT)
 		res = formula_mandelbrot(z, fol);
-	//else add bonus
+	else
+		res = formula_fern(z, fol);
 	return (res);
 }
 
