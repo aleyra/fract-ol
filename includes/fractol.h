@@ -40,10 +40,9 @@ struct s_rgb {
 };
 
 struct s_fern {
-	int		p;//rename ?
-	float	mat_2_2[4];
-	float	mat_1_2[2];
-	int		max;
+	int		proba;
+	t_cplx	mat[2];
+	t_cplx	c;
 };
 
 
@@ -57,7 +56,9 @@ struct s_fol {
 	double		it_tmp[NB_FRACTALS];
 	int			it[NB_FRACTALS];
 	t_cplx		c[NB_FRACTALS];
-	t_fern		fern[2][4];
+	t_fern		fern[4];
+	t_cplx		fern_min;
+	t_cplx		fern_max;
 	void		(*init_fractal[NB_FRACTALS])(t_fol *, int);
 };
 
@@ -109,7 +110,7 @@ void	print_fol(t_fol *fol);
 
 /* fct in fractal *********************************************************** */
 void	init_fern(t_fol *fol, int f);
-t_cplx	formula_fern(t_cplx z, t_fol *fol);
+void	fractal_fern(t_vars *v);
 void	fractal(t_vars *v);
 void	init_julia(t_fol *fol, int f);
 t_cplx	formula_julia(t_cplx z, t_fol *fol);
@@ -127,5 +128,7 @@ void	init_fol(t_fol *fol);
 
 /* fct in tools ************************************************************* */
 t_cplx	coord_to_scale(t_fol *fol, int i, int j, int f);
+int		coord_to_scale_fern_x(t_fol fol, t_cplx z);
+int		coord_to_scale_fern_y(t_fol fol, t_cplx z);
 
 #endif

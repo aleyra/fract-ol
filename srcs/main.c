@@ -5,7 +5,7 @@ static int	init_with_mlx(t_vars *v)
 	v->mlx = mlx_init();
 	if (!v->mlx)
 		return (ft_exit(ERROR_MLX, v));
-	v->win = mlx_new_window(v->mlx, RES_X, RES_Y, "fract'ol");
+	v->win = mlx_new_window(v->mlx, RES_X, RES_Y, "Fract'Ol");
 	if (!v->win)
 		return (ft_exit(ERROR_MLX, v));
 	v->data.img = mlx_new_image(v->mlx, RES_X, RES_Y);
@@ -31,7 +31,11 @@ int	main(int ac, char *av[])
 		return (ft_exit(err, &v));
 	if (init_with_mlx(&v) != NO_ERROR)
 		return (ft_exit(ERROR_MLX, &v));
-	fractal(&v);
+	printf("initialization done\n");
+	if (v.fol->fractal != FERN)
+		fractal(&v);
+	else
+		fractal_fern(&v);
 	printf("displaying...\n");
 	mlx_put_image_to_window(v.mlx, v.win, v.data.img, 0, 0);
 	mlx_hook(v.win, 17, 1L << 2, win_close, &v);

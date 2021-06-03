@@ -19,8 +19,25 @@ int	interact_key(int keycode, t_vars *v)
 
 static void	refresh(t_vars *v)
 {
+	int		i;
+	int		j;
+	t_rgb	black;
+
+	black = init_rgb_black();
 	printf("refreshing...\n");
-	fractal(v);
+	if (v->fol->fractal != FERN)
+		fractal(v);
+	else
+	{
+		i = -1;
+		while (++i < RES_X)
+		{
+			j = -1;
+			while (++j < RES_Y)
+				my_mlx_pixel_put(&v->data, i, j, black);
+		}
+		fractal_fern(v);
+	}
 	mlx_put_image_to_window(v->mlx, v->win, v->data.img, 0, 0);
 }
 
