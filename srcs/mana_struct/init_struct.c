@@ -31,7 +31,6 @@ void	init_fol(t_fol *fol)
 	fol->colors[FERN][1] = init_rgb_color(0, 255, 0);
 	fol->colors[FERN][2] = init_rgb_color(255, 125, 0);
 	fol->colors[FERN][3] = init_rgb_color(255, 255, 0);
-
 	fol->init_fractal[JULIA] = init_julia;
 	fol->init_fractal[MANDELBROT] = init_mandelbrot;
 	fol->init_fractal[FERN] = init_fern;
