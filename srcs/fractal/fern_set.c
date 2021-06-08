@@ -14,8 +14,6 @@ void	init_fern(t_fol *fol, int f)
 	fol->zoom[f] = 4;
 	fol->dis_zoom[f] = 0;
 	fol->pos_left[f] = make_cplx(-3, 0);
-	fol->deg[f] = 2;
-	fol->it_tmp[f] = 0;
 	fol->it[f] = 110000;
 	fol->fern[0].proba = 1;
 	fol->fern[0].mat[0] = make_cplx(0, 0);

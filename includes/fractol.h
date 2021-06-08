@@ -51,8 +51,6 @@ struct s_fol {
 	long double	zoom[NB_FRACTALS];
 	int			dis_zoom[NB_FRACTALS];
 	t_cplx		pos_left[NB_FRACTALS];
-	int			deg[NB_FRACTALS];
-	double		it_tmp[NB_FRACTALS];
 	int			it[NB_FRACTALS];
 	t_cplx		c[NB_FRACTALS];
 	t_fern		fern[4];
