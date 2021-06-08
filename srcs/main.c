@@ -26,11 +26,12 @@ int	main(int ac, char *av[])
 	if (ac == 1 || ac >= 3)
 		return (ft_exit(ERROR_MAIN_PARAM, &v));
 	err = init_fractal(&v, av[1]);
-	v.fol->init_fractal[v.fol->fractal](v.fol, v.fol->fractal);
 	if (err != NO_ERROR)
 		return (ft_exit(err, &v));
+	v.fol->init_fractal[v.fol->fractal](v.fol, v.fol->fractal);
 	if (init_with_mlx(&v) != NO_ERROR)
 		return (ft_exit(ERROR_MLX, &v));
+	v.color = &v.fol->colors[v.fol->fractal][1];
 	printf("initialization done\n");
 	if (v.fol->fractal != FERN)
 		fractal(&v);

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:36:57 by lburnet           #+#    #+#             */
-/*   Updated: 2021/06/02 16:08:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 13:53:48 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,11 @@ typedef struct s_cplx
 	float	y;
 }			t_cplx;
 
-
 float				deg_to_rad(int d);
-int					rad_to_deg(float	r);
+int					rad_to_deg(float r);
 float				angle_one_polaris(t_vec3 *v);
 float				angle_two_polaris(t_vec3 *v);
-t_cplx  			make_cplx(float x, float y);
+t_cplx				make_cplx(float x, float y);
 void				init_tvec3_to_0(t_vec3 *org);
 void				init_tvec3_to_1x(t_vec3 *i);
 void				init_tvec3_to_1y(t_vec3 *j);

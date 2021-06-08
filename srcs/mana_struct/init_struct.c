@@ -1,7 +1,7 @@
 #include "fractol.h"
 
 int	init_fractal(t_vars *v, char *str)
-{
+{	
 	v->fol = malloc(sizeof(t_fol));
 	if (!(v->fol))
 		return (ERROR_MALLOC);

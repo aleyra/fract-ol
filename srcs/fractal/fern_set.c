@@ -57,9 +57,7 @@ void	fractal_fern(t_vars *v)
 				+ fern[j].c.x, fern[j].mat[0].y * z.x + fern[j].mat[1].y * z.y
 				+ fern[j].c.y);
 		my_mlx_pixel_put(&v->data, coord_to_scale_fern_x(*v->fol, z),
-			coord_to_scale_fern_y(*v->fol, z),
-			degraded_color(v->fol->colors[FERN][0], v->fol->colors[FERN][1],
-				(double)it / v->fol->it[FERN]));
+			coord_to_scale_fern_y(*v->fol, z), v->fol->colors[FERN][1]);
 		it++;
 	}
 }

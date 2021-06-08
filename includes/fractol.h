@@ -45,7 +45,6 @@ struct s_fern {
 	t_cplx	c;
 };
 
-
 struct s_fol {
 	int			fractal;
 	t_rgb		colors[NB_FRACTALS][4];
@@ -68,6 +67,7 @@ struct s_vars
 	void	*mlx;
 	t_data	data;
 	t_fol	*fol;
+	t_rgb	*color;
 };
 
 enum e_error {
@@ -82,6 +82,15 @@ enum e_key {
 	SCROLL_UP = 4,
 	SCROLL_DOWN = 5,
 	ESC = 53,
+	NUM_1 = 83,
+	NUM_2 = 84,
+	NUM_3 = 85,
+	NUM_4 = 86,
+	NUM_5 = 87,
+	NUM_6 = 88,
+	NUM_7 = 89,
+	NUM_8 = 91,
+	NUM_9 = 92,
 	LEFT_ARROW = 123,
 	RIGHT_ARROW = 124,
 	DOWN_ARROW = 125,
@@ -97,11 +106,13 @@ enum e_fractal {
 /* fct in display *********************************************************** */
 int		create_trgb(t_rgb color);
 t_rgb	set_random_color(void);
-t_rgb	color_add_i(t_rgb color, int i);
+void	color_add_i_to_c(t_rgb *res, int i, char c);
 t_rgb	degraded_color(t_rgb c1, t_rgb c2, double p);
 int		ft_exit(int err, t_vars *v);
-int		win_close(t_vars *v);
 int		interact_key(int keycode, t_vars *v);
+int		win_close(t_vars *v);
+void	refresh(t_vars *v);
+void	zoom_in_out(t_vars *v, int x, int y, int key);
 int		interact_mouse(int keycode, int x, int y, t_vars *v);
 void	my_mlx_pixel_put(t_data *data, int x, int y, t_rgb color);
 void	print_rgb(t_rgb rgb);

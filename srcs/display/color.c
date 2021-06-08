@@ -17,20 +17,33 @@ t_rgb	set_random_color(void)
 	return (color);
 }
 
-t_rgb	color_add_i(t_rgb color, int i)
+void	color_add_i_to_c(t_rgb *res, int i, char c)
 {
-	t_rgb	res;
-
-	res.r = color.r + i;
-	if (res.r > 255)
-		res.r = res.r % 255;
-	res.g = color.g + i;
-	if (res.g > 255)
-		res.g = res.g % 255;
-	res.b = color.b + i;
-	if (res.b > 255)
-		res.b = res.b % 255;
-	return (res);
+	if (c == 'r')
+	{
+		res->r = res->r + i;
+		if (res->r > 255)
+			res->r = 0;
+		if (res->r < 0)
+			res->r = 255;
+	}
+	if (c == 'g')
+	{
+		res->g = res->g + i;
+		if (res->g > 255)
+			res->g = 0;
+		if (res->g < 0)
+			res->g = 255;
+	}
+	if (c == 'b')
+	{
+		res->b = res->b + i;
+		if (res->b > 255)
+			res->b = 0;
+		if (res->b < 0)
+			res->b = 255;
+	}
+	res->i = create_trgb(*res);
 }
 
 //inspired by qpupier

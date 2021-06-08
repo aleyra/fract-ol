@@ -23,7 +23,7 @@ override MINILIBX		:= libmlx.a
 endif
 
 # List of sources
-SRCS_DISP	=	color.c ft_exit.c interact.c my_mlx_pixel_put.c print_thgs.c
+SRCS_DISP	=	color.c ft_exit.c interact.c interact2.c my_mlx_pixel_put.c print_thgs.c
 SRCS_FRACT	=	fern_set.c fractal.c julia_set.c mandelbrot_set.c
 SRCS_MANA_S	=	init_color.c init_struct.c
 SRCS_TOOLS	=	tools.c
