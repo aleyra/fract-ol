@@ -10,7 +10,14 @@ int	win_close(t_vars *v)
 void	refresh(t_vars *v)
 {
 	printf("refreshing...\n");
-	mlx_clear_window(v->mlx, v->win);
+	mlx_destroy_image(v->mlx, v->data.img);
+	v->data.img = mlx_new_image(v->mlx, RES_X, RES_Y);
+	if (!v->data.img)
+		exit(ft_exit(ERROR_MLX, v));
+	v->data.addr = mlx_get_data_addr(v->data.img, &v->data.bits_per_pix,
+			&v->data.line_len, &v->data.endian);
+	if (!v->data.addr)
+		exit(ft_exit(ERROR_MLX, v));
 	if (v->fol->fractal != FERN)
 		fractal(v);
 	else

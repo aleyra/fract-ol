@@ -80,6 +80,8 @@ enum e_key {
 	SCROLL_UP = 4,
 	SCROLL_DOWN = 5,
 	ESC = 53,
+	NUM_ADD = 69,
+	NUM_MINUS = 78,
 	NUM_1 = 83,
 	NUM_2 = 84,
 	NUM_3 = 85,
